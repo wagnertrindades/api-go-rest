@@ -14,51 +14,51 @@ func Home(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprint(w, "Home Page")
 }
 
-func TodasPersonalidades(w http.ResponseWriter, r *http.Request) {
-	var personalidades []models.Personalidade
+func AllPersonalities(w http.ResponseWriter, r *http.Request) {
+	var personalidades []models.Personality
 
 	database.DB.Find(&personalidades)
 
 	json.NewEncoder(w).Encode(personalidades)
 }
 
-func RetornaUmaPersonalidade(w http.ResponseWriter, r *http.Request) {
+func FindPersonality(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id := vars["id"]
-	var personalidade models.Personalidade
+	var personality models.Personality
 
-	database.DB.First(&personalidade, id)
+	database.DB.First(&personality, id)
 
-	json.NewEncoder(w).Encode(personalidade)
+	json.NewEncoder(w).Encode(personality)
 }
 
-func CriaNovaPersonalidade(w http.ResponseWriter, r *http.Request) {
-	var novaPersonalidade models.Personalidade
+func CreatePersonality(w http.ResponseWriter, r *http.Request) {
+	var newPersonality models.Personality
 
-	json.NewDecoder(r.Body).Decode(&novaPersonalidade)
-	database.DB.Create(&novaPersonalidade)
+	json.NewDecoder(r.Body).Decode(&newPersonality)
+	database.DB.Create(&newPersonality)
 
-	json.NewEncoder(w).Encode(novaPersonalidade)
+	json.NewEncoder(w).Encode(newPersonality)
 }
 
-func DeletaPersonalidade(w http.ResponseWriter, r *http.Request) {
+func DeletePersonality(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id := vars["id"]
-	var personalidade models.Personalidade
+	var personality models.Personality
 
-	database.DB.Delete(&personalidade, id)
+	database.DB.Delete(&personality, id)
 
-	json.NewEncoder(w).Encode(personalidade)
+	json.NewEncoder(w).Encode(personality)
 }
 
-func EditaPersonalidade(w http.ResponseWriter, r *http.Request) {
+func UpdatePersonality(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id := vars["id"]
-	var personalidade models.Personalidade
+	var personality models.Personality
 
-	database.DB.First(&personalidade, id)
-	json.NewDecoder(r.Body).Decode(&personalidade)
-	database.DB.Save(&personalidade)
+	database.DB.First(&personality, id)
+	json.NewDecoder(r.Body).Decode(&personality)
+	database.DB.Save(&personality)
 
-	json.NewEncoder(w).Encode(personalidade)
+	json.NewEncoder(w).Encode(personality)
 }

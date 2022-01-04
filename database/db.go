@@ -12,11 +12,11 @@ var (
 	err error
 )
 
-func ConectaComBancoDeDados() {
-	stringDeConexao := "host=localhost user=root password=root dbname=root port=5432 sslmode=disable"
-	DB, err = gorm.Open(postgres.Open(stringDeConexao))
+func ConnectWithDatabase() {
+	connectionParam := "host=localhost user=root password=root dbname=root port=5432 sslmode=disable"
+	DB, err = gorm.Open(postgres.Open(connectionParam))
 
 	if err != nil {
-		log.Panic("Erro ao conectar ao banco de dados.")
+		log.Panic("Error to connect with database.")
 	}
 }

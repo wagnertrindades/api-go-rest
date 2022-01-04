@@ -9,13 +9,13 @@ import (
 )
 
 func main() {
-	models.Personalidades = []models.Personalidade{
-		{Id: 1, Nome: "Nome 1", Historia: "Historia 1"},
-		{Id: 2, Nome: "Nome 2", Historia: "Historia 2"},
+	models.Personalities = []models.Personality{
+		{Id: 1, Name: "Name 1", Bio: "History 1"},
+		{Id: 2, Name: "Name 2", Bio: "History 2"},
 	}
 
-	database.ConectaComBancoDeDados()
+	database.ConnectWithDatabase()
 
-	fmt.Println("Iniciando Servidor Rest com Go")
+	fmt.Println("Init server Rest with Go")
 	routes.HandleRequest()
 }

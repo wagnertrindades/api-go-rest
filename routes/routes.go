@@ -15,11 +15,11 @@ func HandleRequest() {
 	r.Use(middleware.ContentTypeMiddleware)
 
 	r.HandleFunc("/", controllers.Home)
-	r.HandleFunc("/api/personalidades", controllers.TodasPersonalidades).Methods("Get")
-	r.HandleFunc("/api/personalidades/{id}", controllers.RetornaUmaPersonalidade).Methods("Get")
-	r.HandleFunc("/api/personalidades", controllers.CriaNovaPersonalidade).Methods("Post")
-	r.HandleFunc("/api/personalidades/{id}", controllers.DeletaPersonalidade).Methods("Delete")
-	r.HandleFunc("/api/personalidades/{id}", controllers.EditaPersonalidade).Methods("Put")
+	r.HandleFunc("/api/personalities", controllers.AllPersonalities).Methods("Get")
+	r.HandleFunc("/api/personalities/{id}", controllers.FindPersonality).Methods("Get")
+	r.HandleFunc("/api/personalities", controllers.CreatePersonality).Methods("Post")
+	r.HandleFunc("/api/personalities/{id}", controllers.DeletePersonality).Methods("Delete")
+	r.HandleFunc("/api/personalities/{id}", controllers.UpdatePersonality).Methods("Put")
 
 	log.Fatal(http.ListenAndServe(":8000", handlers.CORS(handlers.AllowedOrigins([]string{"*"}))(r)))
 }
