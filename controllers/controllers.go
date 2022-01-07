@@ -16,7 +16,7 @@ func Home(w http.ResponseWriter, r *http.Request) {
 }
 
 func AllPersonalities(w http.ResponseWriter, r *http.Request) {
-	var personalidades []models.Personality
+	var personalities []models.Personality
 
 	queryParam := r.URL.Query()
 
@@ -34,9 +34,9 @@ func AllPersonalities(w http.ResponseWriter, r *http.Request) {
 		direction = "desc"
 	}
 
-	database.DB.Limit(size).Offset(page).Order(sort + " " + direction).Find(&personalidades)
+	database.DB.Limit(size).Offset(page).Order(sort + " " + direction).Find(&personalities)
 
-	json.NewEncoder(w).Encode(personalidades)
+	json.NewEncoder(w).Encode(personalities)
 }
 
 func FindPersonality(w http.ResponseWriter, r *http.Request) {
