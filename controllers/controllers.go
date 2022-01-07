@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"strconv"
 
 	"github.com/gorilla/mux"
 	"github.com/wagnertrindades/go-rest-api/database"
@@ -17,7 +18,23 @@ func Home(w http.ResponseWriter, r *http.Request) {
 func AllPersonalities(w http.ResponseWriter, r *http.Request) {
 	var personalidades []models.Personality
 
-	database.DB.Find(&personalidades)
+	queryParam := r.URL.Query()
+
+	size, _ := strconv.Atoi(queryParam.Get("size"))
+	page, _ := strconv.Atoi(queryParam.Get("page"))
+
+	sort := queryParam.Get("sort")
+	direction := queryParam.Get("direction")
+
+	if sort == "" {
+		sort = "id"
+	}
+
+	if direction == "" {
+		direction = "desc"
+	}
+
+	database.DB.Limit(size).Offset(page).Order(sort + " " + direction).Find(&personalidades)
 
 	json.NewEncoder(w).Encode(personalidades)
 }
